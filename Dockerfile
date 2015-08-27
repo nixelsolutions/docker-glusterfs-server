@@ -18,11 +18,20 @@ ENV SSH_OPTS -p ${SSH_PORT} -o ConnectTimeout=20 -o UserKnownHostsFile=/dev/null
 ENV GLUSTER_VOL ranchervol
 ENV GLUSTER_BRICK_PATH /gluster_volume
 ENV GLUSTER_CONF_FLAG /etc/gluster.env
+ENV GLUSTER_PORT 24007
 
 ENV DEBUG 0
 
 VOLUME ["${GLUSTER_BRICK_PATH}"]
 VOLUME /var/lib/glusterd
+
+EXPOSE ${SSH_PORT}
+EXPOSE ${GLUSTER_PORT}
+EXPOSE 24008
+EXPOSE 24009
+EXPOSE 49152
+EXPOSE 111
+EXPOSE 111/udp
 
 RUN mkdir -p /var/run/sshd /root/.ssh /var/log/supervisor /var/run/gluster
 RUN perl -p -i -e "s/^Port .*/Port ${SSH_PORT}/g" /etc/ssh/sshd_config
