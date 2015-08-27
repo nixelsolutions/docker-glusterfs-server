@@ -14,7 +14,7 @@ source ${GLUSTER_CONF_FLAG}
 [ "$DEBUG" == "1" ] && set -x && set +e
 
 function exit_msg() {
-   echo $(basename $0): [From container ${MY_RANCHER_IP}]
+   echo $(basename $0): [From container ${MY_IP}]
    echo "$1"
    exit $2
 }

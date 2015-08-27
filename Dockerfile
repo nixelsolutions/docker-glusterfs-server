@@ -8,6 +8,8 @@ RUN add-apt-repository -y ppa:gluster/glusterfs-3.7 && \
     apt-get update && \
     apt-get install -y glusterfs-server supervisor openssh-server dnsutils sshpass
 
+ENV GLUSTER_PEERS **ChangeMe**
+ENV MY_IP **ChangeMe**
 ENV ROOT_PASSWORD **ChangeMe**
 
 ENV SSH_PORT 2222
@@ -16,7 +18,6 @@ ENV SSH_OPTS -p ${SSH_PORT} -o ConnectTimeout=20 -o UserKnownHostsFile=/dev/null
 ENV GLUSTER_VOL ranchervol
 ENV GLUSTER_BRICK_PATH /gluster_volume
 ENV GLUSTER_CONF_FLAG /etc/gluster.env
-ENV SERVICE_NAME gluster
 
 ENV DEBUG 0
 

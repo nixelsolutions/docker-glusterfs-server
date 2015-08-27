@@ -22,7 +22,7 @@ SEMAPHORE_TIMEOUT=120
 source ${GLUSTER_CONF_FLAG}
 
 function echo() {
-   builtin echo $(basename $0): [From container ${MY_RANCHER_IP}] $1
+   builtin echo $(basename $0): [From container ${MY_IP}] $1
 }
 
 function detach() {
@@ -84,7 +84,7 @@ NUMBER_OF_REPLICAS=`gluster volume info ${GLUSTER_VOL} | grep "Number of Bricks:
 # Create the volume
 if ! gluster volume list | grep "^${GLUSTER_VOL}$" >/dev/null; then
    echo "=> Creating GlusterFS volume ${GLUSTER_VOL}..."
-   gluster volume create ${GLUSTER_VOL} replica 2 ${MY_RANCHER_IP}:${GLUSTER_BRICK_PATH} ${PEER}:${GLUSTER_BRICK_PATH} force || detach
+   gluster volume create ${GLUSTER_VOL} replica 2 ${MY_IP}:${GLUSTER_BRICK_PATH} ${PEER}:${GLUSTER_BRICK_PATH} force || detach
    sleep 1
 fi
 

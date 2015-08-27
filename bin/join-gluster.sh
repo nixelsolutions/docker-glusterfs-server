@@ -23,7 +23,7 @@ check_if_already_joined
 ALIVE=0
 for PEER in ${GLUSTER_PEERS}; do
    # Skip myself
-   if [ "${MY_RANCHER_IP}" == "${PEER}" ]; then
+   if [ "${MY_IP}" == "${PEER}" ]; then
       continue
    fi
    echo "=> Checking if I can reach gluster container ${PEER} ..."
@@ -51,7 +51,7 @@ fi
 check_if_already_joined
 
 echo "=> Joining cluster with container ${PEER} ..."
-sshpass -p ${ROOT_PASSWORD} ssh ${SSH_OPTS} ${SSH_USER}@${PEER} "add-gluster-peer.sh ${MY_RANCHER_IP}"
+sshpass -p ${ROOT_PASSWORD} ssh ${SSH_OPTS} ${SSH_USER}@${PEER} "add-gluster-peer.sh ${MY_IP}"
 if [ $? -eq 0 ]; then
    echo "=> Successfully joined cluster with container ${PEER} ..."
 else
