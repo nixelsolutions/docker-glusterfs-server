@@ -21,7 +21,7 @@ check_if_already_joined
 
 # Join the cluster - choose a suitable container
 ALIVE=0
-for PEER in ${GLUSTER_PEERS}; do
+for PEER in `echo ${GLUSTER_PEERS} | sed "s/,/ /g"`; do
    # Skip myself
    if [ "${MY_IP}" == "${PEER}" ]; then
       continue
