@@ -4,6 +4,7 @@ set -e
 
 [ "$DEBUG" == "1" ] && set -x && set +e
 
+# Required stuff to work
 if [ "${GLUSTER_PEERS}" == "**ChangeMe**" -o -z "${GLUSTER_PEERS}" ]; then
    echo "*** ERROR: you need to define GLUSTER_PEERS environment variable - Exiting ..."
    exit 1
