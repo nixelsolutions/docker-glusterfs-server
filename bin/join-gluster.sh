@@ -64,7 +64,7 @@ fi
 check_if_already_joined
 
 echo "=> Joining cluster with container ${PEER} ..."
-MY_IP_HOSTNAME=`echo ${MY_IP} | sed "s/\./_/g"`
+MY_IP_HOSTNAME=`echo ${MY_IP} | sed "s/\./-/g"`
 sshpass -p ${ROOT_PASSWORD} ssh ${SSH_OPTS} ${SSH_USER}@${PEER} "add-gluster-peer.sh ${MY_IP_HOSTNAME}"
 if [ $? -eq 0 ]; then
    echo "=> Successfully joined cluster with container ${PEER} ..."
