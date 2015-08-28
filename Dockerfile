@@ -16,7 +16,7 @@ ENV SSH_PORT 2222
 ENV SSH_USER root
 ENV SSH_OPTS -p ${SSH_PORT} -o ConnectTimeout=20 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no
 ENV GLUSTER_VOL ranchervol
-ENV GLUSTER_BRICK_PATH /gluster_volume
+ENV GLUSTER_BRICK_PATH /gluster_volume/${GLUSTER_VOL}
 ENV GLUSTER_CONF_FLAG /etc/gluster.env
 ENV GLUSTER_PORT 24007
 
