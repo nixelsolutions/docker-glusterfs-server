@@ -19,6 +19,18 @@ sleep 10
 
 check_if_already_joined
 
+# Add peer on /etc/hosts file
+for PEER in `echo ${GLUSTER_PEERS} | sed "s/,/ /g"`; do
+   PEER_HOSTNAME=`echo $PEER | sed "s/\./_/g"`
+   if ! grep " ${PEER_HOSTNAME}$" /etc/hosts >/dev/null; then
+      if [ "${MY_IP}" == "${PEER}" ]; then
+         echo "127.0.0.1 ${PEER_HOSTNAME}" >> /etc/hosts
+      else
+         echo "${MY_IP} ${PEER_HOSTNAME}" >> /etc/hosts
+      fi
+   fi
+done
+
 # Join the cluster - choose a suitable container
 ALIVE=0
 for PEER in `echo ${GLUSTER_PEERS} | sed "s/,/ /g"`; do
@@ -51,7 +63,8 @@ fi
 check_if_already_joined
 
 echo "=> Joining cluster with container ${PEER} ..."
-sshpass -p ${ROOT_PASSWORD} ssh ${SSH_OPTS} ${SSH_USER}@${PEER} "add-gluster-peer.sh ${MY_IP}"
+MY_IP_HOSTNAME=`echo ${MY_IP} | sed "s/\./_/g"`
+sshpass -p ${ROOT_PASSWORD} ssh ${SSH_OPTS} ${SSH_USER}@${PEER} "add-gluster-peer.sh ${MY_IP_HOSTNAME}"
 if [ $? -eq 0 ]; then
    echo "=> Successfully joined cluster with container ${PEER} ..."
 else

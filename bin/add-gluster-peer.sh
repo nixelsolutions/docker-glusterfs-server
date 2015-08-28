@@ -3,6 +3,8 @@
 # Exit status = 0 means the peer was successfully joined
 # Exit status = 1 means there was an error while joining the peer to the cluster
 
+# NOTE that $PEER is the hostname
+
 set -e
 
 [ "$DEBUG" == "1" ] && set -x && set +e
@@ -31,6 +33,12 @@ function detach() {
    rm -f ${SEMAPHORE_FILE}
    exit 1
 }
+
+# Add PEER to /etc/hosts if it's not already added
+PEER_IP=`echo ${PEER} | sed "s/_/\./g"`
+if ! grep " ${PEER}$" /etc/hosts >/dev/null; then
+   echo "${PEER_IP} ${PEER}" >> /etc/hosts
+fi 
 
 echo "=> Checking if I can reach gluster container ${PEER} ..."
 if sshpass -p ${ROOT_PASSWORD} ssh ${SSH_OPTS} ${SSH_USER}@${PEER} "hostname" >/dev/null 2>&1; then
