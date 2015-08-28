@@ -21,7 +21,7 @@ check_if_already_joined
 
 # Add peer on /etc/hosts file
 for PEER in `echo ${GLUSTER_PEERS} | sed "s/,/ /g"`; do
-   PEER_HOSTNAME=`echo ${PEER} | sed "s/\./_/g"`
+   PEER_HOSTNAME=`echo ${PEER} | sed "s/\./-/g"`
    if ! grep " ${PEER_HOSTNAME}$" /etc/hosts >/dev/null; then
       if [ "${MY_IP}" == "${PEER}" ]; then
          echo "127.0.0.1 ${PEER_HOSTNAME}" >> /etc/hosts
@@ -54,7 +54,7 @@ if [ ${ALIVE} -eq 0 ]; then
 fi
 
 # If PEER has requested me to join him, just wait for a while
-PEER_HOSTNAME=`echo $PEER | sed "s/\./_/g"`
+PEER_HOSTNAME=`echo ${PEER} | sed "s/\./-/g"`
 SEMAPHORE_FILE=/tmp/adding-gluster-node.${PEER_HOSTNAME}
 if [ -e ${SEMAPHORE_FILE} ]; then
    echo "=> Seems like peer ${PEER} has just requested me to join him"
