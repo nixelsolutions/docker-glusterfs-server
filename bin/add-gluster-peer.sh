@@ -92,7 +92,8 @@ NUMBER_OF_REPLICAS=`gluster volume info ${GLUSTER_VOL} | grep "Number of Bricks:
 # Create the volume
 if ! gluster volume list | grep "^${GLUSTER_VOL}$" >/dev/null; then
    echo_output "=> Creating GlusterFS volume ${GLUSTER_VOL}..."
-   gluster volume create ${GLUSTER_VOL} replica 2 ${MY_IP}:${GLUSTER_BRICK_PATH} ${PEER}:${GLUSTER_BRICK_PATH} force || detach
+   MY_IP_HOSTNAME=`echo ${MY_IP} | sed "s/\./-/g"`
+   gluster volume create ${GLUSTER_VOL} replica 2 ${MY_IP_HOSTNAME}:${GLUSTER_BRICK_PATH} ${PEER}:${GLUSTER_BRICK_PATH} force || detach
    sleep 1
 fi
 
