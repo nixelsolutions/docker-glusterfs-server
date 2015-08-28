@@ -6,7 +6,7 @@ RUN apt-get update && \
     apt-get install -y python-software-properties software-properties-common
 RUN add-apt-repository -y ppa:gluster/glusterfs-3.7 && \
     apt-get update && \
-    apt-get install -y glusterfs-server supervisor openssh-server dnsutils sshpass
+    apt-get install -y glusterfs-server supervisor openssh-server sshpass
 
 ENV GLUSTER_PEERS **ChangeMe**
 ENV MY_IP **ChangeMe**
