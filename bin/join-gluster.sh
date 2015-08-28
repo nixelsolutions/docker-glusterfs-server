@@ -17,8 +17,6 @@ function check_if_already_joined {
 echo "=> Waiting for glusterd to start..."
 sleep 10
 
-check_if_already_joined
-
 # Add peer on /etc/hosts file
 for PEER in `echo ${GLUSTER_PEERS} | sed "s/,/ /g"`; do
    PEER_HOSTNAME=`echo ${PEER} | sed "s/\./-/g"`
@@ -30,6 +28,8 @@ for PEER in `echo ${GLUSTER_PEERS} | sed "s/,/ /g"`; do
       fi
    fi
 done
+
+check_if_already_joined
 
 # Join the cluster - choose a suitable container
 ALIVE=0
